@@ -75,9 +75,38 @@ window.onload = function () {
 
     sort.addEventListener("click", () => {
         bubbleLog.innerHTML = "";
-        bubbleSort(cartas)
+        selectionSort(cartas)
+        console.log(selectionSort(cartas))
     })
 }
+
+function selectionSort(inputArr) { 
+    let n = inputArr.length;
+        
+    for(let i = 0; i < n; i++) {
+        // Finding the smallest number in the subarray
+        let min = i;
+        for(let j = i+1; j < n; j++){
+            if(inputArr[j].valor < inputArr[min].valor) {
+                min=j; 
+
+            }
+            
+         }
+         if (min != i) {
+             // Swapping the elements
+             let tmp = inputArr[i]; 
+             inputArr[i] = inputArr[min];
+             inputArr[min] = tmp;
+        }
+        const p = document.createElement("p")
+        p.innerHTML = i;
+        bubbleLog.appendChild(p)
+        impresorCartas(inputArr)  
+    }
+    return inputArr;
+}
+
 
 const bubbleSort = (arr = []) => {
     let indice = 0;
