@@ -1,11 +1,11 @@
 
 const cardContainer = document.getElementById("cardContainer")
-const bubbleLog = document.getElementById("bubbleLog")
+const sortLog = document.getElementById("sortLog")
 const input = document.getElementById("input")
 const draw = document.getElementById("draw")
 const sort = document.getElementById("sort")
 
-const cartas = []
+let cartas = []
 
 function generadorCartasRandom(num = []) {
     const listaNumero = ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"];
@@ -38,11 +38,11 @@ function generadorCartasRandom(num = []) {
     return cartas
 }
 
-function impresorCartas(arr = []) {
+function impresorCartas(arr = [], i) {
     const listaNumero = ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"];
     const contCarta = document.createElement("div");
     contCarta.className = "d-flex contCarta"
-    bubbleLog.appendChild(contCarta);
+    sortLog.appendChild(contCarta);
     for (let i = 0; i < arr.length; i++) {
         const carta = document.createElement("div")
         const numero = document.createElement("div")
@@ -69,69 +69,41 @@ function impresorCartas(arr = []) {
 window.onload = function () {
     draw.addEventListener("click", () => {
         cardContainer.innerHTML = "";
-        bubbleLog.innerHTML = "";
+        sortLog.innerHTML = "";
         generadorCartasRandom(input.value)
     })
 
     sort.addEventListener("click", () => {
-        bubbleLog.innerHTML = "";
+        sortLog.innerHTML = "";
         selectionSort(cartas)
         console.log(selectionSort(cartas))
+        cartas=[]
     })
 }
 
 function selectionSort(inputArr) { 
     let n = inputArr.length;
+    let count = 0
         
     for(let i = 0; i < n; i++) {
         // Finding the smallest number in the subarray
         let min = i;
-        for(let j = i+1; j < n; j++){
+        for(let j = i+1; j < n; j++){ 
             if(inputArr[j].valor < inputArr[min].valor) {
-                min=j; 
-
+                min=j;
             }
-            
          }
          if (min != i) {
              // Swapping the elements
              let tmp = inputArr[i]; 
              inputArr[i] = inputArr[min];
              inputArr[min] = tmp;
+             count += 1
+             const p = document.createElement("p")
+             p.innerHTML = count;
+             sortLog.appendChild(p)
+             impresorCartas(inputArr)
         }
-        const p = document.createElement("p")
-        p.innerHTML = i;
-        bubbleLog.appendChild(p)
-        impresorCartas(inputArr)  
     }
     return inputArr;
 }
-
-
-const bubbleSort = (arr = []) => {
-    let indice = 0;
-    let wall = arr.length - 1;
-    while (wall > 0) {
-        let index = 0;
-        while (index < wall) {
-            if (arr[index].valor > arr[index + 1].valor) {
-                let aux = arr[index + 1];
-                arr[index + 1] = arr[index];
-                arr[index] = aux;
-                const p = document.createElement("p")
-                indice += 1;
-                p.innerHTML = indice;
-                bubbleLog.appendChild(p)
-                impresorCartas(arr)
-            }
-            index++;
-        }
-        wall--;
-    }
-    
-    return arr;
-}
-
-
-
-

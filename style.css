@@ -1,8 +1,5 @@
-body {
-    background-image: url(https://3dandroidwallpaper.com/wp-content/uploads/2018/05/Light-Green-Wallpaper-Android.jpg);
-    padding: 20px;
-    background-repeat: none;
-    background-size: cover;
+.body {
+    background-color: green;
 }
 .carta {
     background-color: rgb(240, 240, 240);
